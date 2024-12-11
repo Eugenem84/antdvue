@@ -10,8 +10,8 @@
     />
 
     <div style="margin-bottom: 20px">
-      <a-input v-model:value="paramA" placeholder="Поиск по имени" style="width: 200px" />
-      <a-input v-model:value="paramB" placeholder="Поиск по курению" style="width: 200px; margin-left: 20px" />
+      <a-input v-model:value="paramName" placeholder="Поиск по имени" style="width: 200px" />
+      <a-input v-model:value="paramSmoke" placeholder="Перекуры" style="width: 200px" />
     </div>
 
     <a-table :columns="columns" :dataSource="filteredData" rowKey="id" />
@@ -49,8 +49,8 @@ export default {
 
 
     const dateRange = ref([]);
-    const paramA = ref("");
-    const paramB = ref(null);
+    const paramName = ref("");
+    const paramSmoke = ref(null);
 
     const onDateChange = (value) => {
       console.log(value);
@@ -73,8 +73,8 @@ export default {
             (new Date(item.date) >= new Date(dateRange.value[0]) &&
                 new Date(item.date) <= new Date(dateRange.value[1]));
 
-        const isNameMatch = item.name.toLowerCase().includes(paramA.value.toLowerCase());
-        const isSmokeMatch = item.smokeBreaks >= (paramB.value ? parseInt(paramB.value) : 0);
+        const isNameMatch = item.name.toLowerCase().includes(paramName.value.toLowerCase());
+        const isSmokeMatch = item.smokeBreaks >= (paramSmoke.value ? parseInt(paramSmoke.value) : 0);
 
         return isInDateRange && isNameMatch && isSmokeMatch;
       });
@@ -82,8 +82,8 @@ export default {
 
     return {
       dateRange,
-      paramA,
-      paramB,
+      paramName,
+      paramSmoke,
       columns,
       filteredData,
       onDateChange
@@ -109,4 +109,5 @@ h2 {
 a-table {
   margin-top: 20px;
 }
+
 </style>
